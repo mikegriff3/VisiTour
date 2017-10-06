@@ -31157,10 +31157,20 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    markers: state.mapsReducer.markers
+    markers: state.mapsReducer.markers,
+    directions: state.mapsReducer.directions
   };
 };
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {};
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    getRoute: function getRoute(directions) {
+      dispatch({
+        type: "GET_DIRECTIONS",
+        payload: directions
+      });
+    }
+  };
+};
 
 var HomePage = function (_React$Component) {
   _inherits(HomePage, _React$Component);
@@ -31177,13 +31187,15 @@ var HomePage = function (_React$Component) {
   _createClass(HomePage, [{
     key: "findRoute",
     value: function findRoute() {
+      var _this2 = this;
+
       console.log("PROPS IN HOMEPAGE: ", this.props);
       var tourStops = [];
       for (var i = 0; i < this.props.markers.length; i++) {
         //console.log(this.props.markers[i]);
         tourStops.push({
           location: this.props.markers[i].position,
-          stopover: false
+          stopover: true
         });
       }
       console.log("WAYPOINTS: ", tourStops);
@@ -31198,10 +31210,12 @@ var HomePage = function (_React$Component) {
           lng: -98.493629
         },
         waypoints: tourStops,
+        optimizeWaypoints: true,
         travelMode: google.maps.TravelMode.DRIVING
       }, function (result, status) {
         if (status === google.maps.DirectionsStatus.OK) {
           console.log(result);
+          _this2.props.getRoute(result);
         } else {
           console.error("error fetching directions " + result);
         }
@@ -32399,7 +32413,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    markers: state.mapsReducer.markers
+    markers: state.mapsReducer.markers,
+    directions: state.mapsReducer.directions
   };
 };
 
@@ -32431,10 +32446,16 @@ var Map = function (_React$Component) {
       }]
     };
     _this.placeMarker = _this.placeMarker.bind(_this);
+    _this.renderPath = _this.renderPath.bind(_this);
     return _this;
   }
 
   _createClass(Map, [{
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      console.log("NEXT: ", nextProps);
+    }
+  }, {
     key: "placeMarker",
     value: function placeMarker(event) {
       //console.log("Latitude: ", event.latLng.lat());
@@ -32449,8 +32470,12 @@ var Map = function (_React$Component) {
       this.props.newMarker(marker);
     }
   }, {
+    key: "renderPath",
+    value: function renderPath() {}
+  }, {
     key: "render",
     value: function render() {
+      console.log("DIRECTIONS: ", this.props.directions);
       var markers = this.props.markers;
 
       return _react2.default.createElement(
@@ -32465,7 +32490,8 @@ var Map = function (_React$Component) {
         },
         markers.map(function (marker, index) {
           return _react2.default.createElement(_reactGoogleMaps.Marker, marker);
-        })
+        }),
+        this.props.directions && _react2.default.createElement(_reactGoogleMaps.DirectionsRenderer, { directions: this.props.directions })
       );
     }
   }]);
@@ -43426,7 +43452,8 @@ module.exports = function () {
         lat: 29.424122,
         lng: -98.493629
       }
-    }]
+    }],
+    directions: []
   };
   var action = arguments[1];
 
@@ -43435,6 +43462,12 @@ module.exports = function () {
       state = _extends({}, state, {
         markers: [].concat(_toConsumableArray(state.markers), [action.payload])
       });
+      return state;
+    case "GET_DIRECTIONS":
+      state = _extends({}, state, {
+        directions: action.payload
+      });
+      console.log("state after direct: ", state);
       return state;
 
     default:

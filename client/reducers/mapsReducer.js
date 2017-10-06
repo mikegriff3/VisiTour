@@ -7,7 +7,8 @@ module.exports = (
           lng: -98.493629
         }
       }
-    ]
+    ],
+    directions: []
   },
   action
 ) => {
@@ -17,6 +18,13 @@ module.exports = (
         ...state,
         markers: [...state.markers, action.payload]
       };
+      return state;
+    case "GET_DIRECTIONS":
+      state = {
+        ...state,
+        directions: action.payload
+      };
+      console.log("state after direct: ", state);
       return state;
 
     default:

@@ -1,10 +1,16 @@
 import React from "react";
-import { withGoogleMap, GoogleMap, Marker } from "react-google-maps";
+import {
+  withGoogleMap,
+  GoogleMap,
+  Marker,
+  DirectionsRenderer
+} from "react-google-maps";
 import { connect } from "react-redux";
 
 const mapStateToProps = state => {
   return {
-    markers: state.mapsReducer.markers
+    markers: state.mapsReducer.markers,
+    directions: state.mapsReducer.directions
   };
 };
 
@@ -33,6 +39,11 @@ class Map extends React.Component {
       ]
     };
     this.placeMarker = this.placeMarker.bind(this);
+    this.renderPath = this.renderPath.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log("NEXT: ", nextProps);
   }
 
   placeMarker(event) {
@@ -48,7 +59,10 @@ class Map extends React.Component {
     this.props.newMarker(marker);
   }
 
+  renderPath() {}
+
   render() {
+    console.log("DIRECTIONS: ", this.props.directions);
     const markers = this.props.markers;
 
     return (
@@ -61,6 +75,9 @@ class Map extends React.Component {
         onClick={this.placeMarker}
       >
         {markers.map((marker, index) => <Marker {...marker} />)}
+        {this.props.directions && (
+          <DirectionsRenderer directions={this.props.directions} />
+        )}
       </GoogleMap>
     );
   }

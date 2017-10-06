@@ -20,10 +20,20 @@ import {
 
 const mapStateToProps = state => {
   return {
-    markers: state.mapsReducer.markers
+    markers: state.mapsReducer.markers,
+    directions: state.mapsReducer.directions
   };
 };
-const mapDispatchToProps = dispatch => {};
+const mapDispatchToProps = dispatch => {
+  return {
+    getRoute(directions) {
+      dispatch({
+        type: "GET_DIRECTIONS",
+        payload: directions
+      });
+    }
+  };
+};
 
 class HomePage extends React.Component {
   constructor() {
@@ -38,7 +48,7 @@ class HomePage extends React.Component {
       //console.log(this.props.markers[i]);
       tourStops.push({
         location: this.props.markers[i].position,
-        stopover: false
+        stopover: true
       });
     }
     console.log("WAYPOINTS: ", tourStops);
@@ -54,11 +64,13 @@ class HomePage extends React.Component {
           lng: -98.493629
         },
         waypoints: tourStops,
+        optimizeWaypoints: true,
         travelMode: google.maps.TravelMode.DRIVING
       },
       (result, status) => {
         if (status === google.maps.DirectionsStatus.OK) {
           console.log(result);
+          this.props.getRoute(result);
         } else {
           console.error(`error fetching directions ${result}`);
         }
