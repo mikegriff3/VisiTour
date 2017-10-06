@@ -1,6 +1,11 @@
 import React from "react";
+import { connect } from "react-redux";
+import Map from "./Map";
 
-export default class HomePage extends React.Component {
+const mapStateToProps = state => {};
+const mapDispatchToProps = dispatch => {};
+
+class HomePage extends React.Component {
   constructor() {
     super();
   }
@@ -8,8 +13,13 @@ export default class HomePage extends React.Component {
   render() {
     return (
       <div>
-        <h2>We Are Rendering</h2>
+        <Map
+          containerElement={<div style={{ height: `400px` }} />}
+          mapElement={<div style={{ height: `400px` }} />}
+        />
       </div>
     );
   }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
