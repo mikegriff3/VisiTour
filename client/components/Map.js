@@ -1,5 +1,23 @@
 import React from "react";
 import { withGoogleMap, GoogleMap, Marker } from "react-google-maps";
+import { connect } from "react-redux";
+
+const mapStateToProps = state => {
+  return {
+    markers: state.mapsReducer.markers
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    newMarker(marker) {
+      dispatch({
+        type: "ADD_MARKER",
+        payload: marker
+      });
+    }
+  };
+};
 
 class Map extends React.Component {
   constructor(props) {
@@ -20,6 +38,14 @@ class Map extends React.Component {
   placeMarker(event) {
     console.log("Latitude: ", event.latLng.lat());
     console.log("Longitude: ", event.latLng.lng());
+    let marker = {
+      position: {
+        lat: event.latLng.lat(),
+        lng: event.latLng.lng()
+      }
+    };
+    console.log("Props: ", this.props);
+    this.props.newMarker(marker);
   }
 
   render() {
@@ -40,4 +66,4 @@ class Map extends React.Component {
   }
 }
 
-export default withGoogleMap(Map);
+export default connect(mapStateToProps, mapDispatchToProps)(withGoogleMap(Map));
