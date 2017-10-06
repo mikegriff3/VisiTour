@@ -17,7 +17,6 @@ module.exports = (
         ...state,
         markers: [...state.markers, action.payload]
       };
-      console.log(state);
       return state;
 
     default:

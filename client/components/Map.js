@@ -36,8 +36,8 @@ class Map extends React.Component {
   }
 
   placeMarker(event) {
-    console.log("Latitude: ", event.latLng.lat());
-    console.log("Longitude: ", event.latLng.lng());
+    //console.log("Latitude: ", event.latLng.lat());
+    //console.log("Longitude: ", event.latLng.lng());
     let marker = {
       position: {
         lat: event.latLng.lat(),
