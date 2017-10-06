@@ -49,7 +49,7 @@ class Map extends React.Component {
   }
 
   render() {
-    const markers = this.state.markers;
+    const markers = this.props.markers;
 
     return (
       <GoogleMap

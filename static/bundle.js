@@ -32389,7 +32389,7 @@ var Map = function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var markers = this.state.markers;
+      var markers = this.props.markers;
 
       return _react2.default.createElement(
         _reactGoogleMaps.GoogleMap,
@@ -43359,7 +43359,12 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 module.exports = function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
-    markers: []
+    markers: [{
+      position: {
+        lat: 29.424122,
+        lng: -98.493629
+      }
+    }]
   };
   var action = arguments[1];
 
