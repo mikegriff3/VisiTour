@@ -33,6 +33,15 @@ class HomePage extends React.Component {
 
   findRoute() {
     console.log("PROPS IN HOMEPAGE: ", this.props);
+    var tourStops = [];
+    for (var i = 0; i < this.props.markers.length; i++) {
+      //console.log(this.props.markers[i]);
+      tourStops.push({
+        location: this.props.markers[i].position,
+        stopover: false
+      });
+    }
+    console.log("WAYPOINTS: ", tourStops);
     const DirectionsService = new google.maps.DirectionsService();
     DirectionsService.route(
       {
@@ -44,6 +53,7 @@ class HomePage extends React.Component {
           lat: 29.424122,
           lng: -98.493629
         },
+        waypoints: tourStops,
         travelMode: google.maps.TravelMode.DRIVING
       },
       (result, status) => {
