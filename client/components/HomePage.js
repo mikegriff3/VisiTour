@@ -14,8 +14,8 @@ class HomePage extends React.Component {
     return (
       <div>
         <Map
-          containerElement={<div style={{ height: `400px` }} />}
-          mapElement={<div style={{ height: `400px` }} />}
+          containerElement={<div style={{ height: `500px` }} />}
+          mapElement={<div style={{ height: `500px` }} />}
         />
       </div>
     );

@@ -25732,8 +25732,8 @@ var HomePage = function (_React$Component) {
         "div",
         null,
         _react2.default.createElement(_Map2.default, {
-          containerElement: _react2.default.createElement("div", { style: { height: "400px" } }),
-          mapElement: _react2.default.createElement("div", { style: { height: "400px" } })
+          containerElement: _react2.default.createElement("div", { style: { height: "500px" } }),
+          mapElement: _react2.default.createElement("div", { style: { height: "500px" } })
         })
       );
     }
@@ -27937,13 +27937,30 @@ var Map = function (_React$Component) {
   function Map(props) {
     _classCallCheck(this, Map);
 
-    return _possibleConstructorReturn(this, (Map.__proto__ || Object.getPrototypeOf(Map)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (Map.__proto__ || Object.getPrototypeOf(Map)).call(this, props));
+
+    _this.state = {
+      markers: [{
+        position: {
+          lat: 29.424122,
+          lng: -98.493629
+        }
+      }]
+    };
+    _this.placeMarker = _this.placeMarker.bind(_this);
+    return _this;
   }
 
   _createClass(Map, [{
+    key: "placeMarker",
+    value: function placeMarker(event) {
+      console.log("Latitude: ", event.latLng.lat());
+      console.log("Longitude: ", event.latLng.lng());
+    }
+  }, {
     key: "render",
     value: function render() {
-      var markers = this.props.markers || [];
+      var markers = this.state.markers;
 
       return _react2.default.createElement(
         _reactGoogleMaps.GoogleMap,
@@ -27952,7 +27969,8 @@ var Map = function (_React$Component) {
           defaultCenter: {
             lat: 29.424122,
             lng: -98.493629
-          }
+          },
+          onClick: this.placeMarker
         },
         markers.map(function (marker, index) {
           return _react2.default.createElement(_reactGoogleMaps.Marker, marker);
