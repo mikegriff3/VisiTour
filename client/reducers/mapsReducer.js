@@ -1,13 +1,6 @@
 module.exports = (
   state = {
-    markers: [
-      {
-        position: {
-          lat: 29.424122,
-          lng: -98.493629
-        }
-      }
-    ],
+    markers: [],
     directions: []
   },
   action

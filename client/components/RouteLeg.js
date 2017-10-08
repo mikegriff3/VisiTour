@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import DrivingSteps from "./DrivingSteps";
 
 const mapStateToProps = state => {
   return {
@@ -15,9 +16,10 @@ class RouteLeg extends React.Component {
 
   render() {
     console.log("Props in Route Leg: ", this.props);
+    var steps = this.props.steps;
     return (
       <div>
-        <div>This is a Route Leg.</div>
+        {steps.map((step, index) => <DrivingSteps {...step} />)}
         <hr />
       </div>
     );

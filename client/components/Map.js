@@ -29,14 +29,7 @@ class Map extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      markers: [
-        {
-          position: {
-            lat: 29.424122,
-            lng: -98.493629
-          }
-        }
-      ]
+      markers: []
     };
     this.placeMarker = this.placeMarker.bind(this);
     this.renderPath = this.renderPath.bind(this);
