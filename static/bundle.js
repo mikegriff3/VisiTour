@@ -31143,6 +31143,10 @@ var _Map = __webpack_require__(238);
 
 var _Map2 = _interopRequireDefault(_Map);
 
+var _Directions = __webpack_require__(600);
+
+var _Directions2 = _interopRequireDefault(_Directions);
+
 var _reactBootstrap = __webpack_require__(496);
 
 var _reactGoogleMaps = __webpack_require__(239);
@@ -31277,6 +31281,15 @@ var HomePage = function (_React$Component) {
                 null,
                 "Directions"
               )
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 10, lgOffset: 1 },
+            _react2.default.createElement(
+              "div",
+              null,
+              _react2.default.createElement(_Directions2.default, { directions: this.props.directions })
             )
           )
         )
@@ -43497,6 +43510,8 @@ module.exports = function () {
         directions: action.payload
       });
       return state;
+    case "GET_DRIVING_STEPS":
+      state = _extends({}, state);
 
     default:
       return state;
@@ -60548,6 +60563,153 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
+
+/***/ }),
+/* 600 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(71);
+
+var _RouteLeg = __webpack_require__(601);
+
+var _RouteLeg2 = _interopRequireDefault(_RouteLeg);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    markers: state.mapsReducer.markers,
+    directions: state.mapsReducer.directions
+  };
+};
+
+var Directions = function (_React$Component) {
+  _inherits(Directions, _React$Component);
+
+  function Directions() {
+    _classCallCheck(this, Directions);
+
+    var _this = _possibleConstructorReturn(this, (Directions.__proto__ || Object.getPrototypeOf(Directions)).call(this));
+
+    _this.renderDirections = _this.renderDirections.bind(_this);
+    return _this;
+  }
+
+  _createClass(Directions, [{
+    key: "renderDirections",
+    value: function renderDirections() {
+      if (this.props.directions.routes) {
+        console.log("we have directions");
+        console.log(this.props.directions.routes[0].legs);
+        var legs = this.props.directions.routes[0].legs;
+        return _react2.default.createElement(
+          "div",
+          null,
+          legs.map(function (leg, index) {
+            return _react2.default.createElement(_RouteLeg2.default, leg);
+          })
+        );
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        null,
+        this.renderDirections()
+      );
+    }
+  }]);
+
+  return Directions;
+}(_react2.default.Component);
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(Directions);
+
+/***/ }),
+/* 601 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(71);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    markers: state.mapsReducer.markers,
+    directions: state.mapsReducer.directions
+  };
+};
+
+var RouteLeg = function (_React$Component) {
+  _inherits(RouteLeg, _React$Component);
+
+  function RouteLeg() {
+    _classCallCheck(this, RouteLeg);
+
+    return _possibleConstructorReturn(this, (RouteLeg.__proto__ || Object.getPrototypeOf(RouteLeg)).call(this));
+  }
+
+  _createClass(RouteLeg, [{
+    key: "render",
+    value: function render() {
+      console.log("Props in Route Leg: ", this.props);
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          "div",
+          null,
+          "This is a Route Leg."
+        ),
+        _react2.default.createElement("hr", null)
+      );
+    }
+  }]);
+
+  return RouteLeg;
+}(_react2.default.Component);
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(RouteLeg);
 
 /***/ })
 /******/ ]);

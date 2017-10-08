@@ -25,6 +25,10 @@ module.exports = (
         directions: action.payload
       };
       return state;
+    case "GET_DRIVING_STEPS":
+      state = {
+        ...state
+      };
 
     default:
       return state;

@@ -1,16 +1,32 @@
 import React from "react";
+import { connect } from "react-redux";
+import RouteLeg from "./RouteLeg";
 
-export default class Directions extends React.Component {
+const mapStateToProps = state => {
+  return {
+    markers: state.mapsReducer.markers,
+    directions: state.mapsReducer.directions
+  };
+};
+
+class Directions extends React.Component {
   constructor() {
     super();
+    this.renderDirections = this.renderDirections.bind(this);
+  }
+
+  renderDirections() {
+    if (this.props.directions.routes) {
+      console.log("we have directions");
+      console.log(this.props.directions.routes[0].legs);
+      let legs = this.props.directions.routes[0].legs;
+      return <div>{legs.map((leg, index) => <RouteLeg {...leg} />)}</div>;
+    }
   }
 
   render() {
-    console.log("props in Directions: ", this.props);
-    return (
-      <div>
-        <h5>Where directions will go</h5>
-      </div>
-    );
+    return <div>{this.renderDirections()}</div>;
   }
 }
+
+export default connect(mapStateToProps)(Directions);

@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import Map from "./Map";
+import Directions from "./Directions";
 import {
   Form,
   FormGroup,
@@ -101,6 +102,11 @@ class HomePage extends React.Component {
           <Col lg={10} lgOffset={1}>
             <div>
               <h4>Directions</h4>
+            </div>
+          </Col>
+          <Col lg={10} lgOffset={1}>
+            <div>
+              <Directions directions={this.props.directions} />
             </div>
           </Col>
         </Row>
