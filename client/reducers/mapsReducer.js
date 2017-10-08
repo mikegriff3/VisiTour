@@ -24,7 +24,6 @@ module.exports = (
         ...state,
         directions: action.payload
       };
-      console.log("state after direct: ", state);
       return state;
 
     default:

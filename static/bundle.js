@@ -31189,16 +31189,14 @@ var HomePage = function (_React$Component) {
     value: function findRoute() {
       var _this2 = this;
 
-      console.log("PROPS IN HOMEPAGE: ", this.props);
       var tourStops = [];
       for (var i = 0; i < this.props.markers.length; i++) {
-        //console.log(this.props.markers[i]);
         tourStops.push({
           location: this.props.markers[i].position,
           stopover: true
         });
       }
-      console.log("WAYPOINTS: ", tourStops);
+
       var DirectionsService = new google.maps.DirectionsService();
       DirectionsService.route({
         origin: {
@@ -31227,26 +31225,59 @@ var HomePage = function (_React$Component) {
       return _react2.default.createElement(
         "div",
         null,
-        _react2.default.createElement(_Map2.default, {
-          containerElement: _react2.default.createElement("div", { style: { height: "500px" } }),
-          mapElement: _react2.default.createElement("div", { style: { height: "500px" } })
-        }),
         _react2.default.createElement(
-          "div",
+          _reactBootstrap.Row,
           null,
           _react2.default.createElement(
-            _reactBootstrap.Button,
-            { onClick: this.findRoute },
-            "Find Quickest Route"
+            _reactBootstrap.Col,
+            { lg: 10, lgOffset: 1 },
+            _react2.default.createElement(_Map2.default, {
+              containerElement: _react2.default.createElement("div", { style: { height: "500px" } }),
+              mapElement: _react2.default.createElement("div", { style: { height: "500px" } })
+            })
           )
         ),
         _react2.default.createElement(
-          "div",
+          _reactBootstrap.Row,
           null,
           _react2.default.createElement(
-            _reactBootstrap.Button,
-            null,
-            "Save Route"
+            _reactBootstrap.Col,
+            { lg: 10, lgOffset: 1 },
+            _react2.default.createElement(
+              "div",
+              null,
+              _react2.default.createElement(
+                _reactBootstrap.Button,
+                { onClick: this.findRoute },
+                "Find Quickest Route"
+              )
+            ),
+            _react2.default.createElement(
+              "div",
+              null,
+              _react2.default.createElement(
+                _reactBootstrap.Button,
+                null,
+                "Save Route"
+              )
+            )
+          )
+        ),
+        _react2.default.createElement(
+          _reactBootstrap.Row,
+          null,
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 10, lgOffset: 1 },
+            _react2.default.createElement(
+              "div",
+              null,
+              _react2.default.createElement(
+                "h4",
+                null,
+                "Directions"
+              )
+            )
           )
         )
       );
@@ -32393,6 +32424,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
@@ -32451,33 +32484,28 @@ var Map = function (_React$Component) {
   }
 
   _createClass(Map, [{
-    key: "componentWillReceiveProps",
-    value: function componentWillReceiveProps(nextProps) {
-      console.log("NEXT: ", nextProps);
-    }
-  }, {
     key: "placeMarker",
     value: function placeMarker(event) {
-      //console.log("Latitude: ", event.latLng.lat());
-      //console.log("Longitude: ", event.latLng.lng());
       var marker = {
         position: {
           lat: event.latLng.lat(),
           lng: event.latLng.lng()
         }
       };
-      console.log("Props: ", this.props);
       this.props.newMarker(marker);
     }
   }, {
     key: "renderPath",
-    value: function renderPath() {}
+    value: function renderPath() {
+      if (this.props.directions.length > 0) {
+        console.log("we have directions");
+      }
+    }
   }, {
     key: "render",
     value: function render() {
       console.log("DIRECTIONS: ", this.props.directions);
       var markers = this.props.markers;
-
       return _react2.default.createElement(
         _reactGoogleMaps.GoogleMap,
         {
@@ -32488,8 +32516,9 @@ var Map = function (_React$Component) {
           },
           onClick: this.placeMarker
         },
+        this.renderPath(),
         markers.map(function (marker, index) {
-          return _react2.default.createElement(_reactGoogleMaps.Marker, marker);
+          return _react2.default.createElement(_reactGoogleMaps.Marker, _extends({}, marker, { opacity: 0.5 }));
         }),
         this.props.directions && _react2.default.createElement(_reactGoogleMaps.DirectionsRenderer, { directions: this.props.directions })
       );
@@ -43467,7 +43496,6 @@ module.exports = function () {
       state = _extends({}, state, {
         directions: action.payload
       });
-      console.log("state after direct: ", state);
       return state;
 
     default:

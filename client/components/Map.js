@@ -42,29 +42,25 @@ class Map extends React.Component {
     this.renderPath = this.renderPath.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    console.log("NEXT: ", nextProps);
-  }
-
   placeMarker(event) {
-    //console.log("Latitude: ", event.latLng.lat());
-    //console.log("Longitude: ", event.latLng.lng());
     let marker = {
       position: {
         lat: event.latLng.lat(),
         lng: event.latLng.lng()
       }
     };
-    console.log("Props: ", this.props);
     this.props.newMarker(marker);
   }
 
-  renderPath() {}
+  renderPath() {
+    if (this.props.directions.length > 0) {
+      console.log("we have directions");
+    }
+  }
 
   render() {
     console.log("DIRECTIONS: ", this.props.directions);
     const markers = this.props.markers;
-
     return (
       <GoogleMap
         defaultZoom={12}
@@ -74,7 +70,8 @@ class Map extends React.Component {
         }}
         onClick={this.placeMarker}
       >
-        {markers.map((marker, index) => <Marker {...marker} />)}
+        {this.renderPath()}
+        {markers.map((marker, index) => <Marker {...marker} opacity={0.5} />)}
         {this.props.directions && (
           <DirectionsRenderer directions={this.props.directions} />
         )}

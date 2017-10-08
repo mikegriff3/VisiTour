@@ -42,16 +42,14 @@ class HomePage extends React.Component {
   }
 
   findRoute() {
-    console.log("PROPS IN HOMEPAGE: ", this.props);
     var tourStops = [];
     for (var i = 0; i < this.props.markers.length; i++) {
-      //console.log(this.props.markers[i]);
       tourStops.push({
         location: this.props.markers[i].position,
         stopover: true
       });
     }
-    console.log("WAYPOINTS: ", tourStops);
+
     const DirectionsService = new google.maps.DirectionsService();
     DirectionsService.route(
       {
@@ -81,16 +79,31 @@ class HomePage extends React.Component {
   render() {
     return (
       <div>
-        <Map
-          containerElement={<div style={{ height: `500px` }} />}
-          mapElement={<div style={{ height: `500px` }} />}
-        />
-        <div>
-          <Button onClick={this.findRoute}>Find Quickest Route</Button>
-        </div>
-        <div>
-          <Button>Save Route</Button>
-        </div>
+        <Row>
+          <Col lg={10} lgOffset={1}>
+            <Map
+              containerElement={<div style={{ height: `500px` }} />}
+              mapElement={<div style={{ height: `500px` }} />}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col lg={10} lgOffset={1}>
+            <div>
+              <Button onClick={this.findRoute}>Find Quickest Route</Button>
+            </div>
+            <div>
+              <Button>Save Route</Button>
+            </div>
+          </Col>
+        </Row>
+        <Row>
+          <Col lg={10} lgOffset={1}>
+            <div>
+              <h4>Directions</h4>
+            </div>
+          </Col>
+        </Row>
       </div>
     );
   }
