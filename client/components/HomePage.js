@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import Map from "./Map";
 import Directions from "./Directions";
+import axios from "axios";
 import {
   Form,
   FormGroup,
@@ -40,6 +41,7 @@ class HomePage extends React.Component {
   constructor() {
     super();
     this.findRoute = this.findRoute.bind(this);
+    this.saveRoute = this.saveRoute.bind(this);
   }
 
   findRoute() {
@@ -77,6 +79,19 @@ class HomePage extends React.Component {
     );
   }
 
+  saveRoute() {
+    // var stringifyRoute = JSON.stringify(this.props.markers);
+    // console.log("STRINGIFIED ROUTE: ", stringifyRoute);
+    axios
+      .post("/api/saveRoutes", this.props.markers)
+      .then(data => {
+        console.log("saveRoute data: ", JSON.parse(data.data.markers));
+      })
+      .catch(err => {
+        console.log("Error saving route: ".err);
+      });
+  }
+
   render() {
     return (
       <div>
@@ -94,7 +109,7 @@ class HomePage extends React.Component {
               <Button onClick={this.findRoute}>Find Quickest Route</Button>
             </div>
             <div>
-              <Button>Save Route</Button>
+              <Button onClick={this.saveRoute}>Save Route</Button>
             </div>
           </Col>
         </Row>
