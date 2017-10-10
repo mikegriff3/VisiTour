@@ -46,8 +46,11 @@ class Map extends React.Component {
   }
 
   renderPath() {
-    if (this.props.directions.length > 0) {
-      console.log("we have directions");
+    const markers = this.props.markers;
+    if (this.props.directions.routes) {
+      return <DirectionsRenderer directions={this.props.directions} />;
+    } else {
+      return markers.map((marker, index) => <Marker {...marker} />);
     }
   }
 
@@ -63,10 +66,6 @@ class Map extends React.Component {
         onClick={this.placeMarker}
       >
         {this.renderPath()}
-        {markers.map((marker, index) => <Marker {...marker} opacity={0.5} />)}
-        {this.props.directions && (
-          <DirectionsRenderer directions={this.props.directions} />
-        )}
       </GoogleMap>
     );
   }

@@ -17,8 +17,6 @@ class Directions extends React.Component {
 
   renderDirections() {
     if (this.props.directions.routes) {
-      console.log("we have directions");
-      console.log(this.props.directions.routes[0].legs);
       let legs = this.props.directions.routes[0].legs;
       return <div>{legs.map((leg, index) => <RouteLeg {...leg} />)}</div>;
     } else {

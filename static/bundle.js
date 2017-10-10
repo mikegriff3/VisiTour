@@ -32542,8 +32542,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
@@ -32610,8 +32608,13 @@ var Map = function (_React$Component) {
   }, {
     key: "renderPath",
     value: function renderPath() {
-      if (this.props.directions.length > 0) {
-        console.log("we have directions");
+      var markers = this.props.markers;
+      if (this.props.directions.routes) {
+        return _react2.default.createElement(_reactGoogleMaps.DirectionsRenderer, { directions: this.props.directions });
+      } else {
+        return markers.map(function (marker, index) {
+          return _react2.default.createElement(_reactGoogleMaps.Marker, marker);
+        });
       }
     }
   }, {
@@ -32628,11 +32631,7 @@ var Map = function (_React$Component) {
           },
           onClick: this.placeMarker
         },
-        this.renderPath(),
-        markers.map(function (marker, index) {
-          return _react2.default.createElement(_reactGoogleMaps.Marker, _extends({}, marker, { opacity: 0.5 }));
-        }),
-        this.props.directions && _react2.default.createElement(_reactGoogleMaps.DirectionsRenderer, { directions: this.props.directions })
+        this.renderPath()
       );
     }
   }]);
@@ -60720,8 +60719,6 @@ var Directions = function (_React$Component) {
     key: "renderDirections",
     value: function renderDirections() {
       if (this.props.directions.routes) {
-        console.log("we have directions");
-        console.log(this.props.directions.routes[0].legs);
         var legs = this.props.directions.routes[0].legs;
         return _react2.default.createElement(
           "div",
