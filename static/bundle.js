@@ -31147,6 +31147,10 @@ var _Directions = __webpack_require__(600);
 
 var _Directions2 = _interopRequireDefault(_Directions);
 
+var _SavedRoutes = __webpack_require__(629);
+
+var _SavedRoutes2 = _interopRequireDefault(_SavedRoutes);
+
 var _axios = __webpack_require__(610);
 
 var _axios2 = _interopRequireDefault(_axios);
@@ -31231,8 +31235,6 @@ var HomePage = function (_React$Component) {
   }, {
     key: "saveRoute",
     value: function saveRoute() {
-      // var stringifyRoute = JSON.stringify(this.props.markers);
-      // console.log("STRINGIFIED ROUTE: ", stringifyRoute);
       _axios2.default.post("/api/saveRoutes", this.props.markers).then(function (data) {
         console.log("saveRoute data: ", JSON.parse(data.data.markers));
       }).catch(function (err) {
@@ -31306,6 +31308,15 @@ var HomePage = function (_React$Component) {
               "div",
               null,
               _react2.default.createElement(_Directions2.default, { directions: this.props.directions })
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 10, lgOffset: 1 },
+            _react2.default.createElement(
+              "div",
+              null,
+              _react2.default.createElement(_SavedRoutes2.default, null)
             )
           )
         )
@@ -62335,6 +62346,182 @@ module.exports = function spread(callback) {
   };
 };
 
+
+/***/ }),
+/* 629 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _axios = __webpack_require__(610);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _reactRedux = __webpack_require__(71);
+
+var _SingleRoute = __webpack_require__(630);
+
+var _SingleRoute2 = _interopRequireDefault(_SingleRoute);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    markers: state.mapsReducer.markers,
+    directions: state.mapsReducer.directions
+  };
+};
+
+var SavedRoutes = function (_React$Component) {
+  _inherits(SavedRoutes, _React$Component);
+
+  function SavedRoutes() {
+    _classCallCheck(this, SavedRoutes);
+
+    var _this = _possibleConstructorReturn(this, (SavedRoutes.__proto__ || Object.getPrototypeOf(SavedRoutes)).call(this));
+
+    _this.state = {
+      routes: []
+    };
+    return _this;
+  }
+
+  _createClass(SavedRoutes, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      _axios2.default.get("/api/getRoutes").then(function (data) {
+        console.log("getRoutes DATA: ", data.data);
+        _this2.setState({
+          routes: data.data
+        });
+      }).catch(function (err) {
+        console.log("Error getting routes: ", err);
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var routesArr = this.state.routes;
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          "div",
+          null,
+          "Saved Routes"
+        ),
+        _react2.default.createElement(
+          "div",
+          null,
+          routesArr.map(function (route, index) {
+            return _react2.default.createElement(_SingleRoute2.default, _extends({}, route, { key: index }));
+          })
+        )
+      );
+    }
+  }]);
+
+  return SavedRoutes;
+}(_react2.default.Component);
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(SavedRoutes);
+
+/***/ }),
+/* 630 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(71);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    getRoute: function getRoute(directions) {
+      dispatch({
+        type: "GET_DIRECTIONS",
+        payload: directions
+      });
+    }
+  };
+};
+
+var SingleRoute = function (_React$Component) {
+  _inherits(SingleRoute, _React$Component);
+
+  function SingleRoute() {
+    _classCallCheck(this, SingleRoute);
+
+    var _this = _possibleConstructorReturn(this, (SingleRoute.__proto__ || Object.getPrototypeOf(SingleRoute)).call(this));
+
+    _this.renderSavedRoute = _this.renderSavedRoute.bind(_this);
+    return _this;
+  }
+
+  _createClass(SingleRoute, [{
+    key: "renderSavedRoute",
+    value: function renderSavedRoute() {
+      console.log("render saved route hitting");
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      console.log("Props in singleRoute: ", this.props);
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          "div",
+          { onClick: this.renderSavedRoute },
+          this.props.name
+        )
+      );
+    }
+  }]);
+
+  return SingleRoute;
+}(_react2.default.Component);
+
+exports.default = (0, _reactRedux.connect)(mapDispatchToProps)(SingleRoute);
 
 /***/ })
 /******/ ]);

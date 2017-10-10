@@ -8,9 +8,11 @@ module.exports = {
       })
       .then(data => {
         console.log("GET ALL ROUTES: ", data);
+        res.status(200).send(data);
       })
       .catch(err => {
         console.log("Error getting routes: ", err);
+        res.status(500).send(err);
       });
   },
   saveRoutes: (req, res) => {

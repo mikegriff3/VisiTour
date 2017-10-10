@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import Map from "./Map";
 import Directions from "./Directions";
+import SavedRoutes from "./SavedRoutes";
 import axios from "axios";
 import {
   Form,
@@ -80,8 +81,6 @@ class HomePage extends React.Component {
   }
 
   saveRoute() {
-    // var stringifyRoute = JSON.stringify(this.props.markers);
-    // console.log("STRINGIFIED ROUTE: ", stringifyRoute);
     axios
       .post("/api/saveRoutes", this.props.markers)
       .then(data => {
@@ -122,6 +121,11 @@ class HomePage extends React.Component {
           <Col lg={10} lgOffset={1}>
             <div>
               <Directions directions={this.props.directions} />
+            </div>
+          </Col>
+          <Col lg={10} lgOffset={1}>
+            <div>
+              <SavedRoutes />
             </div>
           </Col>
         </Row>
