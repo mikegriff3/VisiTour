@@ -15,7 +15,6 @@ class RouteLeg extends React.Component {
   }
 
   render() {
-    console.log("Props in Route Leg: ", this.props);
     var steps = this.props.steps;
     return (
       <div>

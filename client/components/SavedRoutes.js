@@ -2,6 +2,12 @@ import React from "react";
 import axios from "axios";
 import { connect } from "react-redux";
 import SingleRoute from "./SingleRoute";
+import {
+  withScriptjs,
+  withGoogleMap,
+  GoogleMap,
+  DirectionsRenderer
+} from "react-google-maps";
 
 const mapStateToProps = state => {
   return {
@@ -36,7 +42,6 @@ class SavedRoutes extends React.Component {
     var routesArr = this.state.routes;
     return (
       <div>
-        <div>Saved Routes</div>
         <div>
           {routesArr.map((route, index) => (
             <SingleRoute {...route} key={index} />

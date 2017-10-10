@@ -52,7 +52,6 @@ class Map extends React.Component {
   }
 
   render() {
-    console.log("DIRECTIONS: ", this.props.directions);
     const markers = this.props.markers;
     return (
       <GoogleMap

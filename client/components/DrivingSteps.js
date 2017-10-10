@@ -6,7 +6,6 @@ export default class DrivingSteps extends React.Component {
   }
 
   render() {
-    console.log("Props in Driving Steps: ", this.props);
     var regex = /(<([^>]+)>)/gi;
     var body = this.props.instructions;
     var instructions = body.replace(regex, "");

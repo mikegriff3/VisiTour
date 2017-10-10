@@ -28145,6 +28145,10 @@ var _HomePage = __webpack_require__(215);
 
 var _HomePage2 = _interopRequireDefault(_HomePage);
 
+var _SavedRoutes = __webpack_require__(629);
+
+var _SavedRoutes2 = _interopRequireDefault(_SavedRoutes);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Main = function Main() {
@@ -28154,7 +28158,8 @@ var Main = function Main() {
     _react2.default.createElement(
       _reactRouterDom.Switch,
       null,
-      _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: "/", component: _HomePage2.default })
+      _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: "/", component: _HomePage2.default }),
+      _react2.default.createElement(_reactRouterDom.Route, { path: "/saved", component: _SavedRoutes2.default })
     )
   );
 };
@@ -32539,7 +32544,6 @@ var Map = function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      console.log("DIRECTIONS: ", this.props.directions);
       var markers = this.props.markers;
       return _react2.default.createElement(
         _reactGoogleMaps.GoogleMap,
@@ -43460,6 +43464,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(104);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -60713,7 +60719,6 @@ var RouteLeg = function (_React$Component) {
   _createClass(RouteLeg, [{
     key: "render",
     value: function render() {
-      console.log("Props in Route Leg: ", this.props);
       var steps = this.props.steps;
       return _react2.default.createElement(
         "div",
@@ -60768,7 +60773,6 @@ var DrivingSteps = function (_React$Component) {
   _createClass(DrivingSteps, [{
     key: "render",
     value: function render() {
-      console.log("Props in Driving Steps: ", this.props);
       var regex = /(<([^>]+)>)/gi;
       var body = this.props.instructions;
       var instructions = body.replace(regex, "");
@@ -62376,6 +62380,8 @@ var _SingleRoute = __webpack_require__(630);
 
 var _SingleRoute2 = _interopRequireDefault(_SingleRoute);
 
+var _reactGoogleMaps = __webpack_require__(239);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -62429,11 +62435,6 @@ var SavedRoutes = function (_React$Component) {
         _react2.default.createElement(
           "div",
           null,
-          "Saved Routes"
-        ),
-        _react2.default.createElement(
-          "div",
-          null,
           routesArr.map(function (route, index) {
             return _react2.default.createElement(_SingleRoute2.default, _extends({}, route, { key: index }));
           })
@@ -62476,6 +62477,12 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
+    newMarker: function newMarker(marker) {
+      dispatch({
+        type: "ADD_MARKER",
+        payload: marker
+      });
+    },
     getRoute: function getRoute(directions) {
       dispatch({
         type: "GET_DIRECTIONS",
@@ -62494,13 +62501,50 @@ var SingleRoute = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (SingleRoute.__proto__ || Object.getPrototypeOf(SingleRoute)).call(this));
 
     _this.renderSavedRoute = _this.renderSavedRoute.bind(_this);
+    _this.findRoute = _this.findRoute.bind(_this);
     return _this;
   }
 
   _createClass(SingleRoute, [{
     key: "renderSavedRoute",
     value: function renderSavedRoute() {
-      console.log("render saved route hitting");
+      var parsedMarkers = JSON.parse(this.props.markers);
+      this.findRoute(parsedMarkers);
+    }
+  }, {
+    key: "findRoute",
+    value: function findRoute(markers) {
+      var _this2 = this;
+
+      var tourStops = [];
+      for (var i = 0; i < markers.length; i++) {
+        tourStops.push({
+          location: markers[i].position,
+          stopover: true
+        });
+      }
+
+      var DirectionsService = new google.maps.DirectionsService();
+      DirectionsService.route({
+        origin: {
+          lat: 29.424122,
+          lng: -98.493629
+        },
+        destination: {
+          lat: 29.424122,
+          lng: -98.493629
+        },
+        waypoints: tourStops,
+        optimizeWaypoints: true,
+        travelMode: google.maps.TravelMode.DRIVING
+      }, function (result, status) {
+        if (status === google.maps.DirectionsStatus.OK) {
+          console.log(result);
+          _this2.props.getRoute(result);
+        } else {
+          console.error("error fetching directions " + result);
+        }
+      });
     }
   }, {
     key: "render",
@@ -62521,7 +62565,7 @@ var SingleRoute = function (_React$Component) {
   return SingleRoute;
 }(_react2.default.Component);
 
-exports.default = (0, _reactRedux.connect)(mapDispatchToProps)(SingleRoute);
+exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(SingleRoute);
 
 /***/ })
 /******/ ]);
