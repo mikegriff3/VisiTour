@@ -16,11 +16,11 @@ module.exports = {
       });
   },
   saveRoutes: (req, res) => {
-    console.log("REQ FROM SAVE ROUTE: ", req.body);
+    console.log("REQ FROM SAVE ROUTE: ", req.body.markers);
     db.Route
       .create({
-        name: "steve",
-        markers: JSON.stringify(req.body)
+        name: req.body.name,
+        markers: JSON.stringify(req.body.markers)
       })
       .then(data => {
         res.status(200).send(data);

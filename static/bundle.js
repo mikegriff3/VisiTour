@@ -31197,8 +31197,12 @@ var HomePage = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (HomePage.__proto__ || Object.getPrototypeOf(HomePage)).call(this));
 
+    _this.state = {
+      name: "Default"
+    };
     _this.findRoute = _this.findRoute.bind(_this);
     _this.saveRoute = _this.saveRoute.bind(_this);
+    _this.handleOnChange = _this.handleOnChange.bind(_this);
     return _this;
   }
 
@@ -31238,9 +31242,21 @@ var HomePage = function (_React$Component) {
       });
     }
   }, {
+    key: "handleOnChange",
+    value: function handleOnChange(event) {
+      this.setState({
+        name: event.target.value
+      });
+    }
+  }, {
     key: "saveRoute",
     value: function saveRoute() {
-      _axios2.default.post("/api/saveRoutes", this.props.markers).then(function (data) {
+      var request = {
+        markers: this.props.markers,
+        name: this.state.name
+      };
+      console.log("REQUEST OBJECT: ", request);
+      _axios2.default.post("/api/saveRoutes", request).then(function (data) {
         alert("Successfully saved your route!");
       }).catch(function (err) {
         console.log("Error saving route: ".err);
@@ -31253,62 +31269,107 @@ var HomePage = function (_React$Component) {
         "div",
         { id: "content-div" },
         _react2.default.createElement(
-          _reactBootstrap.Row,
-          null,
+          "div",
+          { id: "map-view" },
           _react2.default.createElement(
-            _reactBootstrap.Col,
-            { lg: 3, lgOffset: 1 },
+            _reactBootstrap.Row,
+            null,
             _react2.default.createElement(
-              _reactBootstrap.Row,
-              null,
+              _reactBootstrap.Col,
+              { lg: 3, lgOffset: 1, style: { padding: 0 } },
               _react2.default.createElement(
-                _reactBootstrap.Col,
-                { lg: 10, lgOffset: 1 },
+                "div",
+                { id: "side-menu" },
                 _react2.default.createElement(
-                  "div",
+                  _reactBootstrap.Row,
                   null,
                   _react2.default.createElement(
-                    _reactBootstrap.Button,
-                    { onClick: this.findRoute },
-                    "Find Quickest Route"
+                    _reactBootstrap.Col,
+                    { lg: 12 },
+                    _react2.default.createElement(
+                      "div",
+                      { id: "map-instructions" },
+                      _react2.default.createElement(
+                        "h5",
+                        null,
+                        "Click the places you want to visit!"
+                      )
+                    ),
+                    _react2.default.createElement(
+                      "div",
+                      { id: "quickest-route-btn" },
+                      _react2.default.createElement(
+                        _reactBootstrap.Button,
+                        { onClick: this.findRoute },
+                        "Find Quickest Route"
+                      )
+                    )
+                  ),
+                  _react2.default.createElement(
+                    _reactBootstrap.Col,
+                    { lg: 12 },
+                    _react2.default.createElement(
+                      "div",
+                      { id: "save-instructions" },
+                      _react2.default.createElement(
+                        "h5",
+                        null,
+                        "Save your route for later!"
+                      )
+                    ),
+                    _react2.default.createElement(
+                      "div",
+                      { id: "edit-route-textbox" },
+                      _react2.default.createElement(
+                        _reactBootstrap.Form,
+                        null,
+                        _react2.default.createElement("input", {
+                          name: "route-name",
+                          onChange: this.handleOnChange,
+                          className: "edit-route-name-input",
+                          type: "text",
+                          placeholder: "Name your route!"
+                        })
+                      )
+                    )
+                  ),
+                  _react2.default.createElement(
+                    _reactBootstrap.Col,
+                    { lg: 12 },
+                    _react2.default.createElement(
+                      "div",
+                      { id: "save-route-btn" },
+                      _react2.default.createElement(
+                        _reactBootstrap.Button,
+                        { onClick: this.saveRoute },
+                        "Save Route"
+                      )
+                    )
                   )
-                )
-              ),
-              _react2.default.createElement(
-                _reactBootstrap.Col,
-                { lg: 10, lgOffset: 1 },
+                ),
                 _react2.default.createElement(
-                  "div",
+                  _reactBootstrap.Row,
                   null,
                   _react2.default.createElement(
-                    _reactBootstrap.Button,
-                    { onClick: this.saveRoute },
-                    "Save Route"
+                    _reactBootstrap.Col,
+                    { lg: 12 },
+                    _react2.default.createElement(
+                      "div",
+                      { id: "saved-routes" },
+                      _react2.default.createElement(_SavedRoutes2.default, null)
+                    )
                   )
                 )
               )
             ),
             _react2.default.createElement(
-              _reactBootstrap.Row,
-              null,
-              _react2.default.createElement(
-                _reactBootstrap.Col,
-                { lg: 10, lgOffset: 1 },
-                _react2.default.createElement(
-                  "div",
-                  null,
-                  _react2.default.createElement(_SavedRoutes2.default, null)
-                )
-              )
+              _reactBootstrap.Col,
+              { lg: 7, style: { padding: 0 } },
+              _react2.default.createElement(_Map2.default, {
+                containerElement: _react2.default.createElement("div", { style: { height: "500px" } }),
+                mapElement: _react2.default.createElement("div", { style: { height: "500px" } })
+              })
             )
-          ),
-          _react2.default.createElement(
-            _reactBootstrap.Col,
-            { lg: 7 },
-            _react2.default.createElement(_Map2.default, {
-              containerElement: _react2.default.createElement("div", { style: { height: "500px" } }),
-              mapElement: _react2.default.createElement("div", { style: { height: "500px" } })
-            })
           )
         ),
         _react2.default.createElement(
@@ -62447,7 +62508,7 @@ var SavedRoutes = function (_React$Component) {
         _react2.default.createElement(
           "div",
           null,
-          "Saved Routes"
+          "Community Routes"
         ),
         _react2.default.createElement(
           "div",
@@ -62566,7 +62627,6 @@ var SingleRoute = function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      console.log("Props in singleRoute: ", this.props);
       return _react2.default.createElement(
         "div",
         null,

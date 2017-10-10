@@ -66,7 +66,6 @@ class SingleRoute extends React.Component {
   }
 
   render() {
-    console.log("Props in singleRoute: ", this.props);
     return (
       <div>
         <div onClick={this.renderSavedRoute}>{this.props.name}</div>

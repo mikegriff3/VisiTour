@@ -41,8 +41,12 @@ const mapDispatchToProps = dispatch => {
 class HomePage extends React.Component {
   constructor() {
     super();
+    this.state = {
+      name: "Default"
+    };
     this.findRoute = this.findRoute.bind(this);
     this.saveRoute = this.saveRoute.bind(this);
+    this.handleOnChange = this.handleOnChange.bind(this);
   }
 
   findRoute() {
@@ -80,9 +84,20 @@ class HomePage extends React.Component {
     );
   }
 
+  handleOnChange(event) {
+    this.setState({
+      name: event.target.value
+    });
+  }
+
   saveRoute() {
+    var request = {
+      markers: this.props.markers,
+      name: this.state.name
+    };
+    console.log("REQUEST OBJECT: ", request);
     axios
-      .post("/api/saveRoutes", this.props.markers)
+      .post("/api/saveRoutes", request)
       .then(data => {
         alert("Successfully saved your route!");
       })
@@ -94,35 +109,61 @@ class HomePage extends React.Component {
   render() {
     return (
       <div id="content-div">
-        <Row>
-          <Col lg={3} lgOffset={1}>
-            <Row>
-              <Col lg={10} lgOffset={1}>
-                <div>
-                  <Button onClick={this.findRoute}>Find Quickest Route</Button>
-                </div>
-              </Col>
-              <Col lg={10} lgOffset={1}>
-                <div>
-                  <Button onClick={this.saveRoute}>Save Route</Button>
-                </div>
-              </Col>
-            </Row>
-            <Row>
-              <Col lg={10} lgOffset={1}>
-                <div>
-                  <SavedRoutes />
-                </div>
-              </Col>
-            </Row>
-          </Col>
-          <Col lg={7}>
-            <Map
-              containerElement={<div style={{ height: `500px` }} />}
-              mapElement={<div style={{ height: `500px` }} />}
-            />
-          </Col>
-        </Row>
+        <div id="map-view">
+          <Row>
+            <Col lg={3} lgOffset={1} style={{ padding: 0 }}>
+              <div id="side-menu">
+                <Row>
+                  <Col lg={12}>
+                    <div id="map-instructions">
+                      <h5>Click the places you want to visit!</h5>
+                    </div>
+                    <div id="quickest-route-btn">
+                      <Button onClick={this.findRoute}>
+                        Find Quickest Route
+                      </Button>
+                    </div>
+                  </Col>
+                  <Col lg={12}>
+                    <div id="save-instructions">
+                      <h5>Save your route for later!</h5>
+                    </div>
+                    <div id="edit-route-textbox">
+                      <Form>
+                        <input
+                          name="route-name"
+                          onChange={this.handleOnChange}
+                          className="edit-route-name-input"
+                          type="text"
+                          placeholder="Name your route!"
+                        />
+                      </Form>
+                    </div>
+                  </Col>
+                  <Col lg={12}>
+                    <div id="save-route-btn">
+                      <Button onClick={this.saveRoute}>Save Route</Button>
+                    </div>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col lg={12}>
+                    <div id="saved-routes">
+                      <SavedRoutes />
+                    </div>
+                  </Col>
+                </Row>
+              </div>
+            </Col>
+
+            <Col lg={7} style={{ padding: 0 }}>
+              <Map
+                containerElement={<div style={{ height: `500px` }} />}
+                mapElement={<div style={{ height: `500px` }} />}
+              />
+            </Col>
+          </Row>
+        </div>
         <Row>
           <Col lg={10} lgOffset={1}>
             <div>
