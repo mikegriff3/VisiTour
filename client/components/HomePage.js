@@ -84,7 +84,7 @@ class HomePage extends React.Component {
     axios
       .post("/api/saveRoutes", this.props.markers)
       .then(data => {
-        console.log("saveRoute data: ", JSON.parse(data.data.markers));
+        alert("Successfully saved your route!");
       })
       .catch(err => {
         console.log("Error saving route: ".err);
@@ -93,23 +93,34 @@ class HomePage extends React.Component {
 
   render() {
     return (
-      <div>
+      <div id="content-div">
         <Row>
-          <Col lg={10} lgOffset={1}>
+          <Col lg={3} lgOffset={1}>
+            <Row>
+              <Col lg={10} lgOffset={1}>
+                <div>
+                  <Button onClick={this.findRoute}>Find Quickest Route</Button>
+                </div>
+              </Col>
+              <Col lg={10} lgOffset={1}>
+                <div>
+                  <Button onClick={this.saveRoute}>Save Route</Button>
+                </div>
+              </Col>
+            </Row>
+            <Row>
+              <Col lg={10} lgOffset={1}>
+                <div>
+                  <SavedRoutes />
+                </div>
+              </Col>
+            </Row>
+          </Col>
+          <Col lg={7}>
             <Map
               containerElement={<div style={{ height: `500px` }} />}
               mapElement={<div style={{ height: `500px` }} />}
             />
-          </Col>
-        </Row>
-        <Row>
-          <Col lg={10} lgOffset={1}>
-            <div>
-              <Button onClick={this.findRoute}>Find Quickest Route</Button>
-            </div>
-            <div>
-              <Button onClick={this.saveRoute}>Save Route</Button>
-            </div>
           </Col>
         </Row>
         <Row>
@@ -121,11 +132,6 @@ class HomePage extends React.Component {
           <Col lg={10} lgOffset={1}>
             <div>
               <Directions directions={this.props.directions} />
-            </div>
-          </Col>
-          <Col lg={10} lgOffset={1}>
-            <div>
-              <SavedRoutes />
             </div>
           </Col>
         </Row>

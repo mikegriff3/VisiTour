@@ -31241,7 +31241,7 @@ var HomePage = function (_React$Component) {
     key: "saveRoute",
     value: function saveRoute() {
       _axios2.default.post("/api/saveRoutes", this.props.markers).then(function (data) {
-        console.log("saveRoute data: ", JSON.parse(data.data.markers));
+        alert("Successfully saved your route!");
       }).catch(function (err) {
         console.log("Error saving route: ".err);
       });
@@ -31251,43 +31251,64 @@ var HomePage = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         "div",
-        null,
+        { id: "content-div" },
         _react2.default.createElement(
           _reactBootstrap.Row,
           null,
           _react2.default.createElement(
             _reactBootstrap.Col,
-            { lg: 10, lgOffset: 1 },
+            { lg: 3, lgOffset: 1 },
+            _react2.default.createElement(
+              _reactBootstrap.Row,
+              null,
+              _react2.default.createElement(
+                _reactBootstrap.Col,
+                { lg: 10, lgOffset: 1 },
+                _react2.default.createElement(
+                  "div",
+                  null,
+                  _react2.default.createElement(
+                    _reactBootstrap.Button,
+                    { onClick: this.findRoute },
+                    "Find Quickest Route"
+                  )
+                )
+              ),
+              _react2.default.createElement(
+                _reactBootstrap.Col,
+                { lg: 10, lgOffset: 1 },
+                _react2.default.createElement(
+                  "div",
+                  null,
+                  _react2.default.createElement(
+                    _reactBootstrap.Button,
+                    { onClick: this.saveRoute },
+                    "Save Route"
+                  )
+                )
+              )
+            ),
+            _react2.default.createElement(
+              _reactBootstrap.Row,
+              null,
+              _react2.default.createElement(
+                _reactBootstrap.Col,
+                { lg: 10, lgOffset: 1 },
+                _react2.default.createElement(
+                  "div",
+                  null,
+                  _react2.default.createElement(_SavedRoutes2.default, null)
+                )
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 7 },
             _react2.default.createElement(_Map2.default, {
               containerElement: _react2.default.createElement("div", { style: { height: "500px" } }),
               mapElement: _react2.default.createElement("div", { style: { height: "500px" } })
             })
-          )
-        ),
-        _react2.default.createElement(
-          _reactBootstrap.Row,
-          null,
-          _react2.default.createElement(
-            _reactBootstrap.Col,
-            { lg: 10, lgOffset: 1 },
-            _react2.default.createElement(
-              "div",
-              null,
-              _react2.default.createElement(
-                _reactBootstrap.Button,
-                { onClick: this.findRoute },
-                "Find Quickest Route"
-              )
-            ),
-            _react2.default.createElement(
-              "div",
-              null,
-              _react2.default.createElement(
-                _reactBootstrap.Button,
-                { onClick: this.saveRoute },
-                "Save Route"
-              )
-            )
           )
         ),
         _react2.default.createElement(
@@ -31313,15 +31334,6 @@ var HomePage = function (_React$Component) {
               "div",
               null,
               _react2.default.createElement(_Directions2.default, { directions: this.props.directions })
-            )
-          ),
-          _react2.default.createElement(
-            _reactBootstrap.Col,
-            { lg: 10, lgOffset: 1 },
-            _react2.default.createElement(
-              "div",
-              null,
-              _react2.default.createElement(_SavedRoutes2.default, null)
             )
           )
         )
@@ -62432,6 +62444,11 @@ var SavedRoutes = function (_React$Component) {
       return _react2.default.createElement(
         "div",
         null,
+        _react2.default.createElement(
+          "div",
+          null,
+          "Saved Routes"
+        ),
         _react2.default.createElement(
           "div",
           null,
