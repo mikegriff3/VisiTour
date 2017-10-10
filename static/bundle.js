@@ -31352,7 +31352,7 @@ var HomePage = function (_React$Component) {
                   null,
                   _react2.default.createElement(
                     _reactBootstrap.Col,
-                    { lg: 12 },
+                    { lg: 10, lgOffset: 1 },
                     _react2.default.createElement(
                       "div",
                       { id: "saved-routes" },
@@ -60730,6 +60730,12 @@ var Directions = function (_React$Component) {
             return _react2.default.createElement(_RouteLeg2.default, leg);
           })
         );
+      } else {
+        return _react2.default.createElement(
+          "div",
+          null,
+          "Create or select a route to view directions."
+        );
       }
     }
   }, {
@@ -62518,7 +62524,7 @@ var SavedRoutes = function (_React$Component) {
         ),
         _react2.default.createElement(
           "div",
-          null,
+          { id: "saved-routes-container" },
           routesArr.map(function (route, index) {
             return _react2.default.createElement(_SingleRoute2.default, _extends({}, route, { key: index }));
           })

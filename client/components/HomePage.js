@@ -147,7 +147,7 @@ class HomePage extends React.Component {
                   </Col>
                 </Row>
                 <Row>
-                  <Col lg={12}>
+                  <Col lg={10} lgOffset={1}>
                     <div id="saved-routes">
                       <SavedRoutes />
                     </div>

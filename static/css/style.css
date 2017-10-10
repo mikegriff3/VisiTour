@@ -54,6 +54,12 @@
 }
 
 #saved-routes {
-  padding-left: 20px;
-  margin-top: 50px;
+  margin-top: 30px;
+  overflow-y: auto;
+}
+
+#saved-routes-container {
+  overflow-y: auto;
+  height: 160px;
+  border: 1px solid midnightblue;
 }
