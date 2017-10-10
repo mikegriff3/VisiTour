@@ -1,5 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import {
+  Nav,
+  Navbar,
+  NavItem,
+  Button,
+  FormControl,
+  Form,
+  FormGroup
+} from "react-bootstrap";
 
 export default class NavBar extends React.Component {
   constructor() {
@@ -8,9 +17,11 @@ export default class NavBar extends React.Component {
 
   render() {
     return (
-      <div>
-        <h5>This is the navbar</h5>
-      </div>
+      <nav>
+        <div class="nav-wrapper">
+          <div class="brand-logo">VisiTour</div>
+        </div>
+      </nav>
     );
   }
 }

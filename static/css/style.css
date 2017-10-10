@@ -1,9 +1,15 @@
-#content-div {
-  margin-top: 50px;
+.nav-wrapper {
+  height: 80px;
+}
+
+.brand-logo {
+  line-height: 80px;
+  padding-left: 110px;
+  font-size: 28px;
 }
 
 #map-view {
-  border: 2px solid teal;
+  border: 2px solid midnightblue;
   background-color: midnightblue;
 }
 
