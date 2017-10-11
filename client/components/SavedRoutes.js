@@ -9,14 +9,9 @@ import {
   DirectionsRenderer
 } from "react-google-maps";
 
-const mapStateToProps = state => {
-  return {
-    markers: state.mapsReducer.markers,
-    directions: state.mapsReducer.directions
-  };
-};
+//Holds list of saved routes in database
 
-class SavedRoutes extends React.Component {
+export default class SavedRoutes extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -39,5 +34,3 @@ class SavedRoutes extends React.Component {
     );
   }
 }
-
-export default connect(mapStateToProps)(SavedRoutes);

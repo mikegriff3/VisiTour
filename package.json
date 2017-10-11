@@ -1,8 +1,7 @@
 {
   "name": "VisiTour",
   "version": "1.0.0",
-  "description":
-    "Coding Project: Quickest routes to chosen locations in San Antonio",
+  "description": "Coding Project: Quickest routes to chosen locations in San Antonio",
   "main": "index.js",
   "scripts": {
     "test": "mocha -watch -compilers -require",
@@ -29,13 +28,17 @@
     "babel-preset-stage-2": "^6.24.1",
     "body-parser": "^1.18.2",
     "circular-json": "^0.3.3",
+    "enzyme": "^3.1.0",
+    "expect": "^21.2.1",
     "express": "^4.16.1",
+    "fetch-mock": "^5.13.1",
     "history": "^4.7.2",
+    "jsdom": "^11.3.0",
+    "mocha-loader": "^1.1.1",
     "path": "^0.12.7",
     "pg": "^7.3.0",
     "react": "^16.0.0",
     "react-bootstrap": "^0.31.3",
-    "react-dom": "^16.0.0",
     "react-google-maps": "^8.3.4",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
@@ -46,6 +49,9 @@
   "devDependencies": {
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "chai": "^3.2.0",
-    "chai-http": "^1.0.0"
+    "chai-http": "^1.0.0",
+    "react-addons-test-utils": "^15.6.2",
+    "react-dom": "^16.0.0",
+    "react-test-renderer": "^16.0.0"
   }
 }

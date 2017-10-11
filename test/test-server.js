@@ -3,7 +3,14 @@ var chaiHttp = require("chai-http");
 var server = require("../server/index");
 var should = chai.should();
 var expect = require("chai").expect;
-var directions = require("../client/components/Directions");
+var assert = require("assert");
+
+//testing
+describe("Empty test", function() {
+  it("empty test should run successfully", function() {
+    assert.equal("A", "A");
+  });
+});
 
 chai.use(chaiHttp);
 

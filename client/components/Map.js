@@ -35,6 +35,7 @@ class Map extends React.Component {
     this.renderPath = this.renderPath.bind(this);
   }
 
+  //Creates a marker object when clicking map and adds it to state of markers
   placeMarker(event) {
     let marker = {
       position: {
@@ -45,6 +46,7 @@ class Map extends React.Component {
     this.props.newMarker(marker);
   }
 
+  //Returns either view with markers or view with directions
   renderPath() {
     const markers = this.props.markers;
     if (this.props.directions.routes) {

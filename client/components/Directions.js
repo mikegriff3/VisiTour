@@ -16,6 +16,7 @@ class Directions extends React.Component {
   }
 
   renderDirections() {
+    //If we have received directions display them, if not display empty message
     if (this.props.directions.routes) {
       let legs = this.props.directions.routes[0].legs;
       return <div>{legs.map((leg, index) => <RouteLeg {...leg} />)}</div>;

@@ -28145,10 +28145,6 @@ var _HomePage = __webpack_require__(215);
 
 var _HomePage2 = _interopRequireDefault(_HomePage);
 
-var _SavedRoutes = __webpack_require__(629);
-
-var _SavedRoutes2 = _interopRequireDefault(_SavedRoutes);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Main = function Main() {
@@ -28159,7 +28155,7 @@ var Main = function Main() {
       _reactRouterDom.Switch,
       null,
       _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: "/", component: _HomePage2.default }),
-      _react2.default.createElement(_reactRouterDom.Route, { path: "/saved", component: _SavedRoutes2.default })
+      "\\"
     )
   );
 };
@@ -31208,16 +31204,23 @@ var HomePage = function (_React$Component) {
     return _this;
   }
 
+  //Grab saved routes from database
+
+
   _createClass(HomePage, [{
     key: "componentDidMount",
     value: function componentDidMount() {
       this.getAllRoutes();
     }
+
+    //Takes placed markers and gets most efficient route.
+
   }, {
     key: "findRoute",
     value: function findRoute() {
       var _this2 = this;
 
+      //create an array of objects that holds each markers latitude and longitude
       var tourStops = [];
       for (var i = 0; i < this.props.markers.length; i++) {
         tourStops.push({
@@ -31226,6 +31229,7 @@ var HomePage = function (_React$Component) {
         });
       }
 
+      //Send request to google maps API
       var DirectionsService = new google.maps.DirectionsService();
       DirectionsService.route({
         origin: {
@@ -31248,6 +31252,9 @@ var HomePage = function (_React$Component) {
         }
       });
     }
+
+    //Handle input for naming route
+
   }, {
     key: "handleOnChange",
     value: function handleOnChange(event) {
@@ -31255,6 +31262,9 @@ var HomePage = function (_React$Component) {
         name: event.target.value
       });
     }
+
+    //Save route to database
+
   }, {
     key: "saveRoute",
     value: function saveRoute() {
@@ -31272,6 +31282,9 @@ var HomePage = function (_React$Component) {
         console.log("Error saving route: ".err);
       });
     }
+
+    //Grabs all saved routes from database
+
   }, {
     key: "getAllRoutes",
     value: function getAllRoutes() {
@@ -32620,6 +32633,9 @@ var Map = function (_React$Component) {
     return _this;
   }
 
+  //Creates a marker object when clicking map and adds it to state of markers
+
+
   _createClass(Map, [{
     key: "placeMarker",
     value: function placeMarker(event) {
@@ -32631,6 +32647,9 @@ var Map = function (_React$Component) {
       };
       this.props.newMarker(marker);
     }
+
+    //Returns either view with markers or view with directions
+
   }, {
     key: "renderPath",
     value: function renderPath() {
@@ -43596,7 +43615,11 @@ var NavBar = function (_React$Component) {
           _react2.default.createElement(
             "div",
             { "class": "brand-logo" },
-            "VisiTour"
+            _react2.default.createElement(
+              "span",
+              null,
+              "VisiTour"
+            )
           )
         )
       );
@@ -60746,6 +60769,7 @@ var Directions = function (_React$Component) {
   _createClass(Directions, [{
     key: "renderDirections",
     value: function renderDirections() {
+      //If we have received directions display them, if not display empty message
       if (this.props.directions.routes) {
         var legs = this.props.directions.routes[0].legs;
         return _react2.default.createElement(
@@ -60810,12 +60834,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var mapStateToProps = function mapStateToProps(state) {
-  return {
-    markers: state.mapsReducer.markers,
-    directions: state.mapsReducer.directions
-  };
-};
+//Directions for two waypoints in a route
 
 var RouteLeg = function (_React$Component) {
   _inherits(RouteLeg, _React$Component);
@@ -60844,7 +60863,7 @@ var RouteLeg = function (_React$Component) {
   return RouteLeg;
 }(_react2.default.Component);
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps)(RouteLeg);
+exports.default = RouteLeg;
 
 /***/ }),
 /* 602 */
@@ -62515,12 +62534,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var mapStateToProps = function mapStateToProps(state) {
-  return {
-    markers: state.mapsReducer.markers,
-    directions: state.mapsReducer.directions
-  };
-};
+//Holds list of saved routes in database
 
 var SavedRoutes = function (_React$Component) {
   _inherits(SavedRoutes, _React$Component);
@@ -62563,7 +62577,7 @@ var SavedRoutes = function (_React$Component) {
   return SavedRoutes;
 }(_react2.default.Component);
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps)(SavedRoutes);
+exports.default = SavedRoutes;
 
 /***/ }),
 /* 630 */
@@ -62609,6 +62623,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   };
 };
 
+//A single route in the list of saved routes
+
 var SingleRoute = function (_React$Component) {
   _inherits(SingleRoute, _React$Component);
 
@@ -62622,12 +62638,18 @@ var SingleRoute = function (_React$Component) {
     return _this;
   }
 
+  //OnClick of route grabs the markers and finds the route
+
+
   _createClass(SingleRoute, [{
     key: "renderSavedRoute",
     value: function renderSavedRoute() {
       var parsedMarkers = JSON.parse(this.props.markers);
       this.findRoute(parsedMarkers);
     }
+
+    //Takes array of markers and makes request to google maps api
+
   }, {
     key: "findRoute",
     value: function findRoute(markers) {

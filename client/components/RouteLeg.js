@@ -2,14 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import DrivingSteps from "./DrivingSteps";
 
-const mapStateToProps = state => {
-  return {
-    markers: state.mapsReducer.markers,
-    directions: state.mapsReducer.directions
-  };
-};
+//Directions for two waypoints in a route
 
-class RouteLeg extends React.Component {
+export default class RouteLeg extends React.Component {
   constructor() {
     super();
   }
@@ -24,5 +19,3 @@ class RouteLeg extends React.Component {
     );
   }
 }
-
-export default connect(mapStateToProps)(RouteLeg);

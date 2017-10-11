@@ -51,11 +51,14 @@ class HomePage extends React.Component {
     this.getAllRoutes = this.getAllRoutes.bind(this);
   }
 
+  //Grab saved routes from database
   componentDidMount() {
     this.getAllRoutes();
   }
 
+  //Takes placed markers and gets most efficient route.
   findRoute() {
+    //create an array of objects that holds each markers latitude and longitude
     var tourStops = [];
     for (var i = 0; i < this.props.markers.length; i++) {
       tourStops.push({
@@ -64,6 +67,7 @@ class HomePage extends React.Component {
       });
     }
 
+    //Send request to google maps API
     const DirectionsService = new google.maps.DirectionsService();
     DirectionsService.route(
       {
@@ -90,12 +94,14 @@ class HomePage extends React.Component {
     );
   }
 
+  //Handle input for naming route
   handleOnChange(event) {
     this.setState({
       name: event.target.value
     });
   }
 
+  //Save route to database
   saveRoute() {
     var request = {
       markers: this.props.markers,
@@ -113,6 +119,7 @@ class HomePage extends React.Component {
       });
   }
 
+  //Grabs all saved routes from database
   getAllRoutes() {
     axios
       .get("/api/getRoutes")
@@ -179,7 +186,6 @@ class HomePage extends React.Component {
                 </Row>
               </div>
             </Col>
-
             <Col lg={7} style={{ padding: 0 }}>
               <Map
                 containerElement={<div style={{ height: `500px` }} />}

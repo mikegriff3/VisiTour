@@ -18,6 +18,8 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
+//A single route in the list of saved routes
+
 class SingleRoute extends React.Component {
   constructor() {
     super();
@@ -25,11 +27,13 @@ class SingleRoute extends React.Component {
     this.findRoute = this.findRoute.bind(this);
   }
 
+  //OnClick of route grabs the markers and finds the route
   renderSavedRoute() {
     var parsedMarkers = JSON.parse(this.props.markers);
     this.findRoute(parsedMarkers);
   }
 
+  //Takes array of markers and makes request to google maps api
   findRoute(markers) {
     var tourStops = [];
     for (var i = 0; i < markers.length; i++) {

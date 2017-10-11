@@ -19,7 +19,9 @@ export default class NavBar extends React.Component {
     return (
       <nav>
         <div class="nav-wrapper">
-          <div class="brand-logo">VisiTour</div>
+          <div class="brand-logo">
+            <span>VisiTour</span>
+          </div>
         </div>
       </nav>
     );
