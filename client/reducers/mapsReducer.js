@@ -1,7 +1,8 @@
 module.exports = (
   state = {
     markers: [],
-    directions: []
+    directions: [],
+    routes: []
   },
   action
 ) => {
@@ -12,6 +13,7 @@ module.exports = (
         markers: [...state.markers, action.payload]
       };
       return state;
+
     case "GET_DIRECTIONS":
       state = {
         ...state,

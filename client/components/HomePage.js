@@ -42,11 +42,17 @@ class HomePage extends React.Component {
   constructor() {
     super();
     this.state = {
-      name: "Default"
+      name: "Default",
+      routes: []
     };
     this.findRoute = this.findRoute.bind(this);
     this.saveRoute = this.saveRoute.bind(this);
     this.handleOnChange = this.handleOnChange.bind(this);
+    this.getAllRoutes = this.getAllRoutes.bind(this);
+  }
+
+  componentDidMount() {
+    this.getAllRoutes();
   }
 
   findRoute() {
@@ -100,9 +106,24 @@ class HomePage extends React.Component {
       .post("/api/saveRoutes", request)
       .then(data => {
         alert("Successfully saved your route!");
+        this.getAllRoutes();
       })
       .catch(err => {
         console.log("Error saving route: ".err);
+      });
+  }
+
+  getAllRoutes() {
+    axios
+      .get("/api/getRoutes")
+      .then(data => {
+        console.log("getRoutes DATA: ", data.data);
+        this.setState({
+          routes: data.data
+        });
+      })
+      .catch(err => {
+        console.log("Error getting routes: ", err);
       });
   }
 
@@ -152,7 +173,7 @@ class HomePage extends React.Component {
                 <Row>
                   <Col lg={10} lgOffset={1}>
                     <div id="saved-routes">
-                      <SavedRoutes />
+                      <SavedRoutes routes={this.state.routes} />
                     </div>
                   </Col>
                 </Row>

@@ -31198,15 +31198,22 @@ var HomePage = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (HomePage.__proto__ || Object.getPrototypeOf(HomePage)).call(this));
 
     _this.state = {
-      name: "Default"
+      name: "Default",
+      routes: []
     };
     _this.findRoute = _this.findRoute.bind(_this);
     _this.saveRoute = _this.saveRoute.bind(_this);
     _this.handleOnChange = _this.handleOnChange.bind(_this);
+    _this.getAllRoutes = _this.getAllRoutes.bind(_this);
     return _this;
   }
 
   _createClass(HomePage, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.getAllRoutes();
+    }
+  }, {
     key: "findRoute",
     value: function findRoute() {
       var _this2 = this;
@@ -31251,6 +31258,8 @@ var HomePage = function (_React$Component) {
   }, {
     key: "saveRoute",
     value: function saveRoute() {
+      var _this3 = this;
+
       var request = {
         markers: this.props.markers,
         name: this.state.name
@@ -31258,8 +31267,23 @@ var HomePage = function (_React$Component) {
       console.log("REQUEST OBJECT: ", request);
       _axios2.default.post("/api/saveRoutes", request).then(function (data) {
         alert("Successfully saved your route!");
+        _this3.getAllRoutes();
       }).catch(function (err) {
         console.log("Error saving route: ".err);
+      });
+    }
+  }, {
+    key: "getAllRoutes",
+    value: function getAllRoutes() {
+      var _this4 = this;
+
+      _axios2.default.get("/api/getRoutes").then(function (data) {
+        console.log("getRoutes DATA: ", data.data);
+        _this4.setState({
+          routes: data.data
+        });
+      }).catch(function (err) {
+        console.log("Error getting routes: ", err);
       });
     }
   }, {
@@ -31357,7 +31381,7 @@ var HomePage = function (_React$Component) {
                     _react2.default.createElement(
                       "div",
                       { id: "saved-routes" },
-                      _react2.default.createElement(_SavedRoutes2.default, null)
+                      _react2.default.createElement(_SavedRoutes2.default, { routes: this.state.routes })
                     )
                   )
                 )
@@ -43598,7 +43622,8 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 module.exports = function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
     markers: [],
-    directions: []
+    directions: [],
+    routes: []
   };
   var action = arguments[1];
 
@@ -43608,6 +43633,7 @@ module.exports = function () {
         markers: [].concat(_toConsumableArray(state.markers), [action.payload])
       });
       return state;
+
     case "GET_DIRECTIONS":
       state = _extends({}, state, {
         directions: action.payload
@@ -62511,23 +62537,9 @@ var SavedRoutes = function (_React$Component) {
   }
 
   _createClass(SavedRoutes, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var _this2 = this;
-
-      _axios2.default.get("/api/getRoutes").then(function (data) {
-        console.log("getRoutes DATA: ", data.data);
-        _this2.setState({
-          routes: data.data
-        });
-      }).catch(function (err) {
-        console.log("Error getting routes: ", err);
-      });
-    }
-  }, {
     key: "render",
     value: function render() {
-      var routesArr = this.state.routes;
+      var routesArr = this.props.routes;
       return _react2.default.createElement(
         "div",
         null,

@@ -1,10 +1,11 @@
 {
   "name": "VisiTour",
   "version": "1.0.0",
-  "description": "Coding Project: Quickest routes to chosen locations in San Antonio",
+  "description":
+    "Coding Project: Quickest routes to chosen locations in San Antonio",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha -watch -compilers -require",
     "start": "nodemon server/index.js",
     "build": "webpack -w"
   },

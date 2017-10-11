@@ -24,22 +24,8 @@ class SavedRoutes extends React.Component {
     };
   }
 
-  componentDidMount() {
-    axios
-      .get("/api/getRoutes")
-      .then(data => {
-        console.log("getRoutes DATA: ", data.data);
-        this.setState({
-          routes: data.data
-        });
-      })
-      .catch(err => {
-        console.log("Error getting routes: ", err);
-      });
-  }
-
   render() {
-    var routesArr = this.state.routes;
+    var routesArr = this.props.routes;
     return (
       <div>
         <div id="saved-routes-title">Saved Routes</div>
