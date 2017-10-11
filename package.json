@@ -43,6 +43,8 @@
     "webpack": "^3.6.0"
   },
   "devDependencies": {
-    "babel-plugin-transform-object-rest-spread": "^6.26.0"
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "chai": "^3.2.0",
+    "chai-http": "^1.0.0"
   }
 }
