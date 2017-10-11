@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import RouteLeg from "./RouteLeg";
+import RouteLeg from "../components/RouteLeg";
 
 const mapStateToProps = state => {
   return {

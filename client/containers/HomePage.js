@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import Map from "./Map";
 import Directions from "./Directions";
-import SavedRoutes from "./SavedRoutes";
+import SavedRoutes from "../components/SavedRoutes";
 import axios from "axios";
 import {
   Form,
