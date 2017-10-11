@@ -123,6 +123,7 @@ class HomePage extends React.Component {
                         Find Quickest Route
                       </Button>
                     </div>
+                    <hr />
                   </Col>
                   <Col lg={12}>
                     <div id="save-instructions">
@@ -142,7 +143,9 @@ class HomePage extends React.Component {
                   </Col>
                   <Col lg={12}>
                     <div id="save-route-btn">
-                      <Button onClick={this.saveRoute}>Save Route</Button>
+                      <Button id="save-button" onClick={this.saveRoute}>
+                        Save Route
+                      </Button>
                     </div>
                   </Col>
                 </Row>
@@ -167,8 +170,9 @@ class HomePage extends React.Component {
         <Row>
           <Col lg={10} lgOffset={1}>
             <div>
-              <h4>Directions</h4>
+              <h4 id="route-directions-title">Route Directions</h4>
             </div>
+            <hr />
           </Col>
           <Col lg={10} lgOffset={1}>
             <div>

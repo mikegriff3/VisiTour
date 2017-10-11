@@ -5,12 +5,14 @@
 .brand-logo {
   line-height: 80px;
   padding-left: 110px;
-  font-size: 28px;
+  font-size: 36px;
+  font-family: "Baloo Bhaijaan", cursive;
+  color: #01abaa;
 }
 
 #map-view {
-  border: 2px solid midnightblue;
-  background-color: midnightblue;
+  border: 2px solid #01abaa;
+  background-color: #01abaa;
 }
 
 #side-menu {
@@ -28,13 +30,13 @@
 #quickest-route-btn {
   margin: 0 auto;
   text-align: center;
-  margin-top: 15px;
+  margin-top: 20px;
 }
 
 #save-instructions {
   margin: 0 auto;
   text-align: center;
-  margin-top: 50px;
+  margin-top: 0px;
 }
 
 #save-route-btn {
@@ -62,4 +64,16 @@
   overflow-y: auto;
   height: 160px;
   border: 1px solid midnightblue;
+}
+
+#route-directions-title {
+  font-family: "Slabo 27px", serif;
+  font-size: 24px;
+  margin-top: 20px;
+}
+
+.direction-step {
+  font-size: 16px;
+  padding-left: 20px;
+  padding-bottom: 10px;
 }

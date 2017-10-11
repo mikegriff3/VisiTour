@@ -31303,7 +31303,8 @@ var HomePage = function (_React$Component) {
                         { onClick: this.findRoute },
                         "Find Quickest Route"
                       )
-                    )
+                    ),
+                    _react2.default.createElement("hr", null)
                   ),
                   _react2.default.createElement(
                     _reactBootstrap.Col,
@@ -31341,7 +31342,7 @@ var HomePage = function (_React$Component) {
                       { id: "save-route-btn" },
                       _react2.default.createElement(
                         _reactBootstrap.Button,
-                        { onClick: this.saveRoute },
+                        { id: "save-button", onClick: this.saveRoute },
                         "Save Route"
                       )
                     )
@@ -31383,10 +31384,11 @@ var HomePage = function (_React$Component) {
               null,
               _react2.default.createElement(
                 "h4",
-                null,
-                "Directions"
+                { id: "route-directions-title" },
+                "Route Directions"
               )
-            )
+            ),
+            _react2.default.createElement("hr", null)
           ),
           _react2.default.createElement(
             _reactBootstrap.Col,
@@ -60835,6 +60837,8 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactBootstrap = __webpack_require__(496);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -60855,21 +60859,34 @@ var DrivingSteps = function (_React$Component) {
   _createClass(DrivingSteps, [{
     key: "render",
     value: function render() {
+      // Using regex to remove html tags from api response.
       var regex = /(<([^>]+)>)/gi;
       var body = this.props.instructions;
       var instructions = body.replace(regex, "");
       return _react2.default.createElement(
         "div",
-        null,
+        { className: "direction-step" },
         _react2.default.createElement(
-          "div",
+          _reactBootstrap.Row,
           null,
-          instructions
-        ),
-        _react2.default.createElement(
-          "div",
-          null,
-          this.props.distance.text
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 10 },
+            _react2.default.createElement(
+              "div",
+              null,
+              instructions
+            )
+          ),
+          _react2.default.createElement(
+            _reactBootstrap.Col,
+            { lg: 2 },
+            _react2.default.createElement(
+              "div",
+              null,
+              this.props.distance.text
+            )
+          )
         )
       );
     }
@@ -62517,7 +62534,7 @@ var SavedRoutes = function (_React$Component) {
         _react2.default.createElement(
           "div",
           null,
-          "Community Routes"
+          "Saved Routes"
         ),
         _react2.default.createElement(
           "div",
