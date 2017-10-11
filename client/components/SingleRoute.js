@@ -68,7 +68,10 @@ class SingleRoute extends React.Component {
   render() {
     return (
       <div>
-        <div onClick={this.renderSavedRoute}>{this.props.name}</div>
+        <div onClick={this.renderSavedRoute} className="single-saved-route">
+          {this.props.name}
+        </div>
+        <hr className="saved-route-divider" />
       </div>
     );
   }

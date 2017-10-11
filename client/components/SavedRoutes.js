@@ -42,8 +42,9 @@ class SavedRoutes extends React.Component {
     var routesArr = this.state.routes;
     return (
       <div>
-        <div>Saved Routes</div>
+        <div id="saved-routes-title">Saved Routes</div>
         <div id="saved-routes-container">
+          <br />
           {routesArr.map((route, index) => (
             <SingleRoute {...route} key={index} />
           ))}

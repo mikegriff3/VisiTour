@@ -62533,12 +62533,13 @@ var SavedRoutes = function (_React$Component) {
         null,
         _react2.default.createElement(
           "div",
-          null,
+          { id: "saved-routes-title" },
           "Saved Routes"
         ),
         _react2.default.createElement(
           "div",
           { id: "saved-routes-container" },
+          _react2.default.createElement("br", null),
           routesArr.map(function (route, index) {
             return _react2.default.createElement(_SingleRoute2.default, _extends({}, route, { key: index }));
           })
@@ -62658,9 +62659,10 @@ var SingleRoute = function (_React$Component) {
         null,
         _react2.default.createElement(
           "div",
-          { onClick: this.renderSavedRoute },
+          { onClick: this.renderSavedRoute, className: "single-saved-route" },
           this.props.name
-        )
+        ),
+        _react2.default.createElement("hr", { className: "saved-route-divider" })
       );
     }
   }]);

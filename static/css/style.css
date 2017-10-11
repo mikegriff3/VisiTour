@@ -55,15 +55,31 @@
   width: 70%;
 }
 
+#saved-routes-title {
+  font-family: "Slabo 27px", serif;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
 #saved-routes {
-  margin-top: 30px;
+  margin-top: 20px;
   overflow-y: auto;
 }
 
 #saved-routes-container {
   overflow-y: auto;
   height: 160px;
-  border: 1px solid midnightblue;
+  border: 1px solid #01abaa;
+}
+
+.single-saved-route {
+  padding-left: 10px;
+  font-size: 14px;
+}
+
+.saved-route-divider {
+  padding-top: 10px;
+  margin-bottom: 10px;
 }
 
 #route-directions-title {
